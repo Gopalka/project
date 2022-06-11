@@ -1,0 +1,34 @@
+create or replace procedure rise_ sal(e in number,amt in namber,s out number)
+is
+begin
+update emp set sal=sal+amt where empno=e;
+commit;
+select sal in to s from emp where empno=e;
+end;
+/
+
+----------------------------
+2)
+----------------------------
+DECLARE
+v_empname emp.ename%TYPE;
+v_job_title emp.job%TYPE;
+v_salary emp.sal%TYPE;
+v_deptname dept.dname%TYPE;
+BEGIN
+SELECT ename,job,sal,dname
+INTO v_empname,v_job_title,v_salary,v_deptname
+FROM emp e, dept d
+WHERE e.empno=&employeeno 
+AND e.deptno = d.deptno;/*querying from one table means you must be able to relate 
+them according to their relationship link if you do it incorrectly it will return no rows.*/
+DBMS_OUTPUT.PUT_LINE(INITCAP(v_empname)||CHR(9)||
+INITCAP(v_job_title)||CHR(9)||TO_CHAR(v_salary)||CHR(9)|| 
+INITCAP(v_deptname) );
+END;
+/
+
+
+---------------------------
+3)
+---------------------------
